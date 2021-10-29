@@ -12,4 +12,4 @@ We're a Discord community exclusively for content creators: youtubers, streamers
 
 - **NodeJS:** v16
 - **Hosting provider:** SparkedHost.com
-- **discord.js:** v13.2.0
+- **discord.js:** v13.3.0
