@@ -32,7 +32,7 @@ module.exports = {
 		}
 
 		// await client.application.commands.set(data);
-		client.guilds.cache.get('903617352388726824').commands.set(data);
+		client.guilds.cache.get(process.env['Guild']).commands.set(data);
 
 	},
 };
