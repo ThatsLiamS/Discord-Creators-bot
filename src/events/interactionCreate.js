@@ -34,7 +34,7 @@ module.exports = {
 			}
 
 			if (cmd['developerOnly'] == true) {
-				owners = await client.application.fetch().then(app => app.owner.members.map(member => member.id))
+				const owners = await client.application.fetch().then(app => app.owner.members.map(member => member.id));
 				if (!(owners.includes(interaction.member.id))) {
 					interaction.reply({ content: 'Sorry, this command is for developers only.', ephemeral: true });
 					return;

@@ -1,5 +1,4 @@
-const { Interaction, MessageEmbed } = require('discord.js');
-require('dotenv').config();
+const fs = require('fs');
 
 module.exports = {
 	name: 'reload',
@@ -14,28 +13,28 @@ module.exports = {
 	],
 
 	error: false,
-	
 	execute: async ({ interaction }) => {
 
 		const client = interaction.client;
 		const command = interaction.options.getString('command');
 
-		try {
-			const pull = require(`${__dirname}/../general/${command}.js`);
-		} catch(error) {
-			return interaction.reply({ content: 'Command not found.', ephemeral: true });
+
+		if (!fs.existsSync(`${__dirname}/../general/${command}.js`)) {
+			interaction.reply({ content: 'Command not found.', ephemeral: true });
+			return;
 		}
-		
+
 		delete require.cache[require.resolve(`${__dirname}/../general/${command}.js`)];
 		client.commands.delete(command);
+
 		try {
 			const data = require(`${__dirname}/../general/${command}.js`);
 			client.commands.set(data.name, data);
-			return interaction.reply({ content: `Command \`${data.name}\` reloaded successfully.`, ephemeral: true });
+
+			interaction.reply({ content: `Command \`${data.name}\` reloaded successfully.`, ephemeral: true });
 		}
 		catch (error) {
-			console.error(error);
-			return interaction.reply({ content: `Command \`${command}\` reload failed with error \`${error}\`. Full error logged to console.`, ephemeral: true });
+			interaction.reply({ content: `Command \`${command}\` reload failed with error \`${error}\`. Full error logged to console.`, ephemeral: true });
 		}
 
 	},
