@@ -2,7 +2,7 @@ module.exports = {
 	name: 'messageDelete',
 	once: false,
 
-	execute: () => {
+	execute: async (message, client) => {
 		/* */
 	},
 };
