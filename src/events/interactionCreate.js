@@ -1,3 +1,5 @@
+const { MessageEmbed, MessageButton, MessageActionRow, Permissions } = require('discord.js');
+
 module.exports = {
 	name: 'interactionCreate',
 	once: false,
@@ -45,6 +47,39 @@ module.exports = {
 			/* Executes command file */
 			await cmd.execute({ interaction, client });
 
+		}
+
+		if (interaction.isButton()) {
+
+			if (interaction.customId == 'delete_ticket_request') {
+				/*  */
+			}
+
+			if (interaction.customId == 'create_ticket') {
+				interaction.reply({ content: 'Creating your ticket now.', ephemeral: true });
+
+				const embed = new MessageEmbed()
+					.setColor('#0099FF')
+					.setTitle('Discord Creators | Support')
+					.setDescription('Support will be with you shortly.\nTo close this ticket react with 🔒')
+					.setFooter(interaction.guild.name, interaction.guild.iconURL({ dynamic: true }))
+					.setTimestamp();
+
+				const row = new MessageActionRow()
+					.addComponents(
+						new MessageButton()
+							.setStyle('DANGER').setEmoji('🔒').setLabel('Close the ticket').setCustomId('delete_ticket_request'),
+					);
+
+				const channel = interaction.guild.channels.create(`support-${1}`, {
+					parent: process.env['TicketParent'],
+					permissionOverwrites: [{
+						id: interaction.user.id,
+						allow: [Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.SEND_MESSAGES],
+					}],
+				});
+				channel.send({ content: `${interaction.member} Welcome. <@&714933854460313700> <@&> will be with you shortly`, embeds: [embed], components: [row] });
+			}
 		}
 
 	},
