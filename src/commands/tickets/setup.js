@@ -18,7 +18,7 @@ module.exports = {
 		const channel = interaction.options.getChannel('channel');
 
 		const embed = new MessageEmbed()
-			.setColor('#0099FF')
+			.setColor(process.env['Color'])
 			.setTitle('Discord Creators | Support')
 			.setDescription('If you have any questions, create a ticket by clicking the button below.')
 			.setFooter(interaction.guild.name, interaction.guild.iconURL({ dynamic: true }))

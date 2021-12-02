@@ -23,7 +23,7 @@ module.exports = {
 
 
 		const embed = new MessageEmbed()
-			.setColor('#0099ff')
+			.setColor(process.env['Color'])
 			.setAuthor(`${interaction.member.user.username} (${interaction.member.id})`, interaction.member.displayAvatarURL())
 			.setTitle(`${guild.name}'s Information`)
 			.setThumbnail(guild.iconURL({ dynamic: true }))

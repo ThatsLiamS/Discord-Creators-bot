@@ -17,7 +17,7 @@ module.exports = {
 
 		const avatarURL = interaction.guild.iconURL() ? interaction.guild.iconURL() : 'https://i.imgur.com/yLv2YVnh.jpg';
 		const embed = new MessageEmbed()
-			.setColor('#0099ff')
+			.setColor(process.env['Color'])
 			.setDescription(`**${client.user.tag}**\n${interaction.options.getString('description')}`)
 			.setAuthor(interaction.member.user.username, interaction.member.user.displayAvatarURL())
 			.setFooter(`ID: ${interaction.member.id}`)
