@@ -16,7 +16,6 @@ module.exports = {
 	error: false,
 	execute: async ({ interaction }) => {
 
-
 		const member = interaction.options.getMember('user') || interaction.member;
 		const user = await member.user.fetch(true);
 
@@ -45,8 +44,7 @@ module.exports = {
 			.setFooter(`Requested by ${interaction.member.user.tag}, ID ${interaction.member.id}`)
 			.setTimestamp();
 
-
-		interaction.reply({ embeds: [embed] });
+		interaction.followUp({ embeds: [embed] });
 
 	},
 };

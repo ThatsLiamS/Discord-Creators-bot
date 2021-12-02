@@ -6,13 +6,14 @@ module.exports = {
 
 		/* Is the interaction an ApplicationCommand? */
 		if (interaction.isCommand()) {
+			await interaction.deferReply();
 
 			const cmd = client.commands.get(interaction.commandName);
 			if (!cmd) return;
 
 
 			if (cmd['error'] == true) {
-				interaction.reply({ content: 'Sorry, this command is currently unavailable. Please try again later.', ephemeral: true });
+				interaction.followUp({ content: 'Sorry, this command is currently unavailable. Please try again later.', ephemeral: true });
 				return;
 			}
 
@@ -20,7 +21,7 @@ module.exports = {
 				for (const permission of cmd['permissions']) {
 					/* Loops through and checks all permissions agasint the user */
 					if (!interaction.member.permissions.has(permission)) {
-						interaction.reply({ content: 'Sorry, you do not have permission to run this command.', ephemeral: true });
+						interaction.followUp({ content: 'Sorry, you do not have permission to run this command.', ephemeral: true });
 						return;
 					}
 				}
@@ -28,7 +29,7 @@ module.exports = {
 
 			if (cmd['ownerOnly'] == true) {
 				if (!interaction.member.id == interaction.guild.ownerId) {
-					interaction.reply({ content: 'Sorry, only the server owner can run this command.', ephemeral: true });
+					interaction.followUp({ content: 'Sorry, only the server owner can run this command.', ephemeral: true });
 					return;
 				}
 			}
@@ -36,7 +37,7 @@ module.exports = {
 			if (cmd['developerOnly'] == true) {
 				const owners = await client.application.fetch().then(app => app.owner.members.map(member => member.id));
 				if (!(owners.includes(interaction.member.id))) {
-					interaction.reply({ content: 'Sorry, this command is for developers only.', ephemeral: true });
+					interaction.followUp({ content: 'Sorry, this command is for developers only.', ephemeral: true });
 					return;
 				}
 			}
